@@ -33,7 +33,7 @@ email , function(err , data){
        if(data[0].cnt > 0){  
         let message  = "Email exists";
           res.status(409).json(message)
-             console.log("email  exists")
+             console.log("email alredy exists")
        }else{
            mydatabase.query(`INSERT INTO tusers (name, surname, email) VALUES ('${name}', '${surname}', '${email}')` , function(err , insert){
                if(err){
