@@ -21,6 +21,11 @@ mydatabase.connect((err) =>{
   console.log("You are Connected")
 })
 
+// ANY ENTRY POINT TO THE API 
+app.get("/", (req, res) => {
+  res.send("WOLCOME TO USERS API");
+});
+
 // Register a user
 app.post("/register", (req, res) => {
   const { name, surname, email } = req.body;
