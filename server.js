@@ -16,6 +16,11 @@ const mydatabase = mysql.createConnection({
   database: process.env.DATABASSE,
 });
 
+mydatabase.connect((err) =>{
+  if(err) throw err
+  console.log("You are Connected")
+})
+
 // Register a user
 app.post("/register", (req, res) => {
   const { name, surname, email } = req.body;
@@ -55,7 +60,7 @@ email , function(err , data){
   .on("error", () => rej({ err: "Could not fetch all users" }));
 });
 
-const port = process.env.PORT || 6000;
+const port = process.env.PORT || 7000;
 app.listen(port, () => {
-  console.log("Listening on port 4000");
+  console.log("Listening on port 7000");
 });
