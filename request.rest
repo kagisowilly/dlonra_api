@@ -2,9 +2,9 @@ POST http://localhost:7000/register
 Content-Type: application/json
 
 {
-"name" :"opopo",
-"surname": "mpphyhyhpp",
-"email": "Kagisoo@gmail.com"
+"name" :"Winnie",
+"surname": "The poo",
+"email": "Kagi@gmail.com"
 }
 ###
 GET http://localhost:7000/users

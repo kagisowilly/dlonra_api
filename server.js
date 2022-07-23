@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use(express.json());
 // Create connection
+
 const mydatabase = mysql.createConnection({
   host: process.env.HOSTT,
   user: process.env.USER,
@@ -16,10 +17,25 @@ const mydatabase = mysql.createConnection({
   database: process.env.DATABASSE,
 });
 
-mydatabase.connect((err) =>{
-  if(err) throw err
-  console.log("You are Connected")
-})
+
+function handleDisconnection(){
+let db = mydatabase;
+  db.connect((err) =>{
+    if(err){
+      console.log('error connecting to database', err);
+      setTimeout(handleDisconnection, 2000);
+    }
+  });
+  db.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') {
+      handleDisconnection(); 
+    } else {   
+      throw err;    
+    }
+  });
+}
+
 
 // ANY ENTRY POINT TO THE API 
 app.get("/", (req, res) => {
@@ -64,6 +80,8 @@ email , function(err , data){
   )
   .on("error", () => rej({ err: "Could not fetch all users" }));
 });
+
+handleDisconnection();
 
 const port = process.env.PORT || 7000;
 app.listen(port, () => {
