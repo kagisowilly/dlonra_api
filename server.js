@@ -23,7 +23,7 @@ mydatabase.connect((err) =>{
 
 // ANY ENTRY POINT TO THE API 
 app.get("/", (req, res) => {
-  res.send("WOLCOME TO USERS API");
+  res.send("WOLCOME TO USERS APP");
 });
 
 // Register a user
