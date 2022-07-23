@@ -6,18 +6,15 @@ require("dotenv").config();
 
 // setting up cors config
 app.use(cors());
-
 app.use(express.json());
 // Create connection
-
 const mydatabase = mysql.createConnection({
   host: process.env.HOSTT,
   user: process.env.USER,
   password: process.env.PASSWORD,
   database: process.env.DATABASSE,
 });
-
-
+// HANDLING A SERVER WHEN IT CRASHED 
 function handleDisconnection(){
 let db = mydatabase;
   db.connect((err) =>{
@@ -35,13 +32,10 @@ let db = mydatabase;
     }
   });
 }
-
-
 // ANY ENTRY POINT TO THE API 
 app.get("/", (req, res) => {
   res.send("WOLCOME TO USERS APP");
 });
-
 // Register a user
 app.post("/register", (req, res) => {
   const { name, surname, email } = req.body;
@@ -70,7 +64,6 @@ email , function(err , data){
 })
 
 });
-
 // GET USERS 
  app.get('/users', (req, res) =>{
   let sql = 'SELECT * FROM tusers';
@@ -80,9 +73,7 @@ email , function(err , data){
   )
   .on("error", () => rej({ err: "Could not fetch all users" }));
 });
-
 handleDisconnection();
-
 const port = process.env.PORT || 7000;
 app.listen(port, () => {
   console.log("Listening on port 7000");
